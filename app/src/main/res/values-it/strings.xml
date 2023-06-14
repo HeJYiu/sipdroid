@@ -27,7 +27,7 @@
 
 <resources>
 
-<string name="app_name">Sipdroid</string>
+<string name="app_name">Sip-Phone</string>
 <string name="pstn_name">Telefono</string>
 <string name="sip_name">Sipdroid, quando disponibile</string>
 

@@ -151,7 +151,7 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
 	public static final String	DEFAULT_PORT = "" + SipStack.default_port;
 	public static final String	DEFAULT_PROTOCOL = "tcp";
 	public static final boolean	DEFAULT_WLAN = true;
-	public static final boolean	DEFAULT_3G = false;
+	public static final boolean	DEFAULT_3G = true;
 	public static final boolean	DEFAULT_EDGE = false;
 	public static final boolean	DEFAULT_VPN = false;
 	public static final String	DEFAULT_PREF = VAL_PREF_SIP;
@@ -313,16 +313,16 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
 
 		settings.registerOnSharedPreferenceChangeListener(this);
 
-		updateSummaries();		
+		updateSummaries();
 		Codecs.check();
 	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-	    menu.add(0, MENU_IMPORT, 0, getString(R.string.settings_profile_menu_import)).setIcon(android.R.drawable.ic_menu_upload);
-	    menu.add(0, MENU_EXPORT, 0, getString(R.string.settings_profile_menu_export)).setIcon(android.R.drawable.ic_menu_save);
-	    menu.add(0, MENU_DELETE, 0, getString(R.string.settings_profile_menu_delete)).setIcon(android.R.drawable.ic_menu_delete);
-	    menu.add(0, MENU_ABOUT, 0, getString(R.string.menu_about)).setIcon(android.R.drawable.ic_menu_info_details);
+//	    menu.add(0, MENU_IMPORT, 0, getString(R.string.settings_profile_menu_import)).setIcon(android.R.drawable.ic_menu_upload);
+//	    menu.add(0, MENU_EXPORT, 0, getString(R.string.settings_profile_menu_export)).setIcon(android.R.drawable.ic_menu_save);
+//	    menu.add(0, MENU_DELETE, 0, getString(R.string.settings_profile_menu_delete)).setIcon(android.R.drawable.ic_menu_delete);
+//	    menu.add(0, MENU_ABOUT, 0, getString(R.string.menu_about)).setIcon(android.R.drawable.ic_menu_info_details);
 	    return true;
     }
 
@@ -569,73 +569,78 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
     }
 
 	public void updateSummaries() {
-    	getPreferenceScreen().findPreference(PREF_STUN_SERVER).setSummary(settings.getString(PREF_STUN_SERVER, DEFAULT_STUN_SERVER));
-    	getPreferenceScreen().findPreference(PREF_STUN_SERVER_PORT).setSummary(settings.getString(PREF_STUN_SERVER_PORT, DEFAULT_STUN_SERVER_PORT));
+//    	getPreferenceScreen().findPreference(PREF_STUN_SERVER).setSummary(settings.getString(PREF_STUN_SERVER, DEFAULT_STUN_SERVER));
+//    	getPreferenceScreen().findPreference(PREF_STUN_SERVER_PORT).setSummary(settings.getString(PREF_STUN_SERVER_PORT, DEFAULT_STUN_SERVER_PORT));
 
        	// MMTel settings (added by mandrajg)
-       	getPreferenceScreen().findPreference(PREF_MMTEL_QVALUE).setSummary(settings.getString(PREF_MMTEL_QVALUE, DEFAULT_MMTEL_QVALUE));	
-    	
-       	for (int i = 0; i < SipdroidEngine.LINES; i++) {
-       		String j = (i!=0?""+i:"");
-       		String username = settings.getString(PREF_USERNAME+j, DEFAULT_USERNAME),
-       			server = settings.getString(PREF_SERVER+j, DEFAULT_SERVER);
-	    	getPreferenceScreen().findPreference(PREF_USERNAME+j).setSummary(username); 
-	    	getPreferenceScreen().findPreference(PREF_SERVER+j).setSummary(server);
-	    	if (settings.getString(PREF_DOMAIN+j, DEFAULT_DOMAIN).length() == 0) {
-	    		getPreferenceScreen().findPreference(PREF_DOMAIN+j).setSummary(getString(R.string.settings_domain2));
-	    	} else {
-	    		getPreferenceScreen().findPreference(PREF_DOMAIN+j).setSummary(settings.getString(PREF_DOMAIN+j, DEFAULT_DOMAIN));
-	    	}
-	    	if (settings.getString(PREF_FROMUSER+j,DEFAULT_FROMUSER).length() == 0) {
-	    		getPreferenceScreen().findPreference(PREF_FROMUSER+j).setSummary(getString(R.string.settings_callerid2));
-	    	} else {
-	    		getPreferenceScreen().findPreference(PREF_FROMUSER+j).setSummary(settings.getString(PREF_FROMUSER+j, DEFAULT_FROMUSER));
-	    	}
-	    	getPreferenceScreen().findPreference(PREF_PORT+j).setSummary(settings.getString(PREF_PORT+j, DEFAULT_PORT));
-	    	getPreferenceScreen().findPreference(PREF_PROTOCOL+j).setSummary(settings.getString(PREF_PROTOCOL+j,
-	    		settings.getString(PREF_SERVER+j, DEFAULT_SERVER).equals(DEFAULT_SERVER) ? "tcp" : "udp").toUpperCase());
-	    	getPreferenceScreen().findPreference(PREF_ACCOUNT+j).setSummary(username.equals("")||server.equals("")?getResources().getString(R.string.settings_line)+" "+(i+1):username+"@"+server);
-       	}
-       	
-    	getPreferenceScreen().findPreference(PREF_SEARCH).setSummary(settings.getString(PREF_SEARCH, DEFAULT_SEARCH)); 
-    	getPreferenceScreen().findPreference(PREF_EXCLUDEPAT).setSummary(settings.getString(PREF_EXCLUDEPAT, DEFAULT_EXCLUDEPAT)); 
-    	getPreferenceScreen().findPreference(PREF_POSURL).setSummary(settings.getString(PREF_POSURL, DEFAULT_POSURL)); 
-    	getPreferenceScreen().findPreference(PREF_CALLTHRU2).setSummary(settings.getString(PREF_CALLTHRU2, DEFAULT_CALLTHRU2)); 
-    	if (! settings.getString(PREF_PREF, DEFAULT_PREF).equals(VAL_PREF_PSTN)) {
-    		getPreferenceScreen().findPreference(PREF_PAR).setEnabled(true);
-    	} else {
-    		getPreferenceScreen().findPreference(PREF_PAR).setEnabled(false);
-      	}
-    	fill(PREF_EARGAIN,  "" + DEFAULT_EARGAIN,  R.array.eargain_values, R.array.eargain_display_values);
-    	fill(PREF_MICGAIN,  "" + DEFAULT_MICGAIN,  R.array.eargain_values, R.array.eargain_display_values);
-    	fill(PREF_HEARGAIN, "" + DEFAULT_HEARGAIN, R.array.eargain_values, R.array.eargain_display_values);
-    	fill(PREF_HMICGAIN, "" + DEFAULT_HMICGAIN, R.array.eargain_values, R.array.eargain_display_values);
-    	if (settings.getBoolean(PREF_STUN, DEFAULT_STUN)) {
-    		getPreferenceScreen().findPreference(PREF_STUN_SERVER).setEnabled(true);
-    		getPreferenceScreen().findPreference(PREF_STUN_SERVER_PORT).setEnabled(true);
-    	} else {
-    		getPreferenceScreen().findPreference(PREF_STUN_SERVER).setEnabled(false);
-    		getPreferenceScreen().findPreference(PREF_STUN_SERVER_PORT).setEnabled(false);       	
-    	}
-    	
-    	// MMTel configuration (added by mandrajg)
-    	if (settings.getBoolean(PREF_MMTEL, DEFAULT_MMTEL)) {
-    		getPreferenceScreen().findPreference(PREF_MMTEL_QVALUE).setEnabled(true);
-    	} else {
-    		getPreferenceScreen().findPreference(PREF_MMTEL_QVALUE).setEnabled(false);       	
-    	}
-    	
-    	if (settings.getBoolean(PREF_CALLTHRU, DEFAULT_CALLTHRU)) {
-    		getPreferenceScreen().findPreference(PREF_CALLTHRU2).setEnabled(true);
-    	} else {
-    		getPreferenceScreen().findPreference(PREF_CALLTHRU2).setEnabled(false);
-    	}
-       	if (! settings.getString(PREF_POSURL, DEFAULT_POSURL).equals(DEFAULT_POSURL)) {
-    		getPreferenceScreen().findPreference(PREF_CALLBACK).setEnabled(! DEFAULT_CALLBACK);
-       	} else {
-    		getPreferenceScreen().findPreference(PREF_CALLBACK).setEnabled(DEFAULT_CALLBACK);
-       	}
-       	getPreferenceScreen().findPreference(PREF_BLUETOOTH).setEnabled(RtpStreamReceiver.isBluetoothSupported());
+//       	getPreferenceScreen().findPreference(PREF_MMTEL_QVALUE).setSummary(settings.getString(PREF_MMTEL_QVALUE, DEFAULT_MMTEL_QVALUE));
+
+		String username = settings.getString(PREF_USERNAME, DEFAULT_USERNAME),
+				server = settings.getString(PREF_SERVER, DEFAULT_SERVER);
+		getPreferenceScreen().findPreference(PREF_USERNAME).setSummary(username);
+		getPreferenceScreen().findPreference(PREF_SERVER).setSummary(server);
+
+//       	for (int i = 0; i < SipdroidEngine.LINES-1; i++) {
+//       		String j = (i!=0?""+i:"");
+//       		String username = settings.getString(PREF_USERNAME+j, DEFAULT_USERNAME),
+//       			server = settings.getString(PREF_SERVER+j, DEFAULT_SERVER);
+//	    	getPreferenceScreen().findPreference(PREF_USERNAME+j).setSummary(username);
+//	    	getPreferenceScreen().findPreference(PREF_SERVER+j).setSummary(server);
+//	    	if (settings.getString(PREF_DOMAIN+j, DEFAULT_DOMAIN).length() == 0) {
+//	    		getPreferenceScreen().findPreference(PREF_DOMAIN+j).setSummary(getString(R.string.settings_domain2));
+//	    	} else {
+//	    		getPreferenceScreen().findPreference(PREF_DOMAIN+j).setSummary(settings.getString(PREF_DOMAIN+j, DEFAULT_DOMAIN));
+//	    	}
+//	    	if (settings.getString(PREF_FROMUSER+j,DEFAULT_FROMUSER).length() == 0) {
+//	    		getPreferenceScreen().findPreference(PREF_FROMUSER+j).setSummary(getString(R.string.settings_callerid2));
+//	    	} else {
+//	    		getPreferenceScreen().findPreference(PREF_FROMUSER+j).setSummary(settings.getString(PREF_FROMUSER+j, DEFAULT_FROMUSER));
+//	    	}
+//	    	getPreferenceScreen().findPreference(PREF_PORT+j).setSummary(settings.getString(PREF_PORT+j, DEFAULT_PORT));
+//	    	getPreferenceScreen().findPreference(PREF_PROTOCOL+j).setSummary(settings.getString(PREF_PROTOCOL+j,
+//	    		settings.getString(PREF_SERVER+j, DEFAULT_SERVER).equals(DEFAULT_SERVER) ? "tcp" : "udp").toUpperCase());
+//	    	getPreferenceScreen().findPreference(PREF_ACCOUNT+j).setSummary(username.equals("")||server.equals("")?getResources().getString(R.string.settings_line)+" "+(i+1):username+"@"+server);
+//       	}
+//
+//    	getPreferenceScreen().findPreference(PREF_SEARCH).setSummary(settings.getString(PREF_SEARCH, DEFAULT_SEARCH));
+//    	getPreferenceScreen().findPreference(PREF_EXCLUDEPAT).setSummary(settings.getString(PREF_EXCLUDEPAT, DEFAULT_EXCLUDEPAT));
+//    	getPreferenceScreen().findPreference(PREF_POSURL).setSummary(settings.getString(PREF_POSURL, DEFAULT_POSURL));
+//    	getPreferenceScreen().findPreference(PREF_CALLTHRU2).setSummary(settings.getString(PREF_CALLTHRU2, DEFAULT_CALLTHRU2));
+//    	if (! settings.getString(PREF_PREF, DEFAULT_PREF).equals(VAL_PREF_PSTN)) {
+//    		getPreferenceScreen().findPreference(PREF_PAR).setEnabled(true);
+//    	} else {
+//    		getPreferenceScreen().findPreference(PREF_PAR).setEnabled(false);
+//      	}
+//    	fill(PREF_EARGAIN,  "" + DEFAULT_EARGAIN,  R.array.eargain_values, R.array.eargain_display_values);
+//    	fill(PREF_MICGAIN,  "" + DEFAULT_MICGAIN,  R.array.eargain_values, R.array.eargain_display_values);
+//    	fill(PREF_HEARGAIN, "" + DEFAULT_HEARGAIN, R.array.eargain_values, R.array.eargain_display_values);
+//    	fill(PREF_HMICGAIN, "" + DEFAULT_HMICGAIN, R.array.eargain_values, R.array.eargain_display_values);
+//    	if (settings.getBoolean(PREF_STUN, DEFAULT_STUN)) {
+//    		getPreferenceScreen().findPreference(PREF_STUN_SERVER).setEnabled(true);
+//    		getPreferenceScreen().findPreference(PREF_STUN_SERVER_PORT).setEnabled(true);
+//    	} else {
+//    		getPreferenceScreen().findPreference(PREF_STUN_SERVER).setEnabled(false);
+//    		getPreferenceScreen().findPreference(PREF_STUN_SERVER_PORT).setEnabled(false);
+//    	}
+//
+//    	// MMTel configuration (added by mandrajg)
+//    	if (settings.getBoolean(PREF_MMTEL, DEFAULT_MMTEL)) {
+//    		getPreferenceScreen().findPreference(PREF_MMTEL_QVALUE).setEnabled(true);
+//    	} else {
+//    		getPreferenceScreen().findPreference(PREF_MMTEL_QVALUE).setEnabled(false);
+//    	}
+//
+//    	if (settings.getBoolean(PREF_CALLTHRU, DEFAULT_CALLTHRU)) {
+//    		getPreferenceScreen().findPreference(PREF_CALLTHRU2).setEnabled(true);
+//    	} else {
+//    		getPreferenceScreen().findPreference(PREF_CALLTHRU2).setEnabled(false);
+//    	}
+//       	if (! settings.getString(PREF_POSURL, DEFAULT_POSURL).equals(DEFAULT_POSURL)) {
+//    		getPreferenceScreen().findPreference(PREF_CALLBACK).setEnabled(! DEFAULT_CALLBACK);
+//       	} else {
+//    		getPreferenceScreen().findPreference(PREF_CALLBACK).setEnabled(DEFAULT_CALLBACK);
+//       	}
+//       	getPreferenceScreen().findPreference(PREF_BLUETOOTH).setEnabled(RtpStreamReceiver.isBluetoothSupported());
     }
 
     @Override

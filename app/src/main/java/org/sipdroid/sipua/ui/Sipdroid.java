@@ -126,7 +126,7 @@ public class Sipdroid extends Activity implements OnDismissListener {
 	            PROJECTION, Calls.NUMBER+" like ?", new String[] { "%@%" }, Calls.DEFAULT_SORT_ORDER);
 	    CallsAdapter adapter = new CallsAdapter(this, cursor);
 	    sip_uri_box.setAdapter(adapter);
-	    sip_uri_box2.setAdapter(adapter);
+//	    sip_uri_box2.setAdapter(adapter);
 	}
 	
 	public static class CallsCursor extends CursorWrapper {
@@ -224,7 +224,7 @@ public class Sipdroid extends Activity implements OnDismissListener {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.sipdroid);
 		sip_uri_box = (AutoCompleteTextView) findViewById(R.id.txt_callee);
-		sip_uri_box2 = (AutoCompleteTextView) findViewById(R.id.txt_callee2);
+//		sip_uri_box2 = (AutoCompleteTextView) findViewById(R.id.txt_callee2);
 		sip_uri_box.setOnKeyListener(new OnKeyListener() {
 		    public boolean onKey(View v, int keyCode, KeyEvent event) {
 		        if (event.getAction() == KeyEvent.ACTION_DOWN &&
@@ -241,38 +241,38 @@ public class Sipdroid extends Activity implements OnDismissListener {
 				call_menu(sip_uri_box);
 			}
 		});
-		sip_uri_box2.setOnKeyListener(new OnKeyListener() {
-		    public boolean onKey(View v, int keyCode, KeyEvent event) {
-		        if (event.getAction() == KeyEvent.ACTION_DOWN &&
-		        		keyCode == KeyEvent.KEYCODE_ENTER) {
-		          call_menu(sip_uri_box2);
-		          return true;
-		        }
-		        return false;
-		    }
-		});
-		sip_uri_box2.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				call_menu(sip_uri_box2);
-			}
-		});
+//		sip_uri_box2.setOnKeyListener(new OnKeyListener() {
+//		    public boolean onKey(View v, int keyCode, KeyEvent event) {
+//		        if (event.getAction() == KeyEvent.ACTION_DOWN &&
+//		        		keyCode == KeyEvent.KEYCODE_ENTER) {
+//		          call_menu(sip_uri_box2);
+//		          return true;
+//		        }
+//		        return false;
+//		    }
+//		});
+//		sip_uri_box2.setOnItemClickListener(new OnItemClickListener() {
+//			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//					long arg3) {
+//				call_menu(sip_uri_box2);
+//			}
+//		});
 		on(this,true);
 
-		Button contactsButton = (Button) findViewById(R.id.contacts_button);
-		contactsButton.setOnClickListener(new Button.OnClickListener() {
-			public void onClick(View v) {
-				Intent myIntent = new Intent(Intent.ACTION_DIAL);
-				startActivity(myIntent);
-			}
-		});
+//		Button contactsButton = (Button) findViewById(R.id.contacts_button);
+//		contactsButton.setOnClickListener(new Button.OnClickListener() {
+//			public void onClick(View v) {
+//				Intent myIntent = new Intent(Intent.ACTION_DIAL);
+//				startActivity(myIntent);
+//			}
+//		});
 
 		final Context mContext = this;
 
 		Button settingsButton = (Button) findViewById(R.id.settings_button);
 		settingsButton.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
-					Intent myIntent = new Intent(mContext,org.sipdroid.sipua.ui.Settings.class);
+				Intent myIntent = new Intent(mContext,org.sipdroid.sipua.ui.Settings.class);
 				startActivity(myIntent);
 			}
 		});

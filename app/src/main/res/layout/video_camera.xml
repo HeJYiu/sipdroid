@@ -14,7 +14,8 @@
 --> 
  
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="horizontal"> 
  
@@ -24,7 +25,7 @@
             android:layout_height="144px"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-    /> 
+        tools:ignore="MissingClass" />
  
     <VideoView
             android:id="@+id/video_frame"

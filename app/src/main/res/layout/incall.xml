@@ -17,99 +17,100 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         >
 
         <!-- (1) inCallPanel: the main set of in-call UI elements -->
-        <RelativeLayout android:id="@+id/inCallPanel"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        >
+       <RelativeLayout
+           android:id="@+id/inCallPanel"
+           android:layout_width="fill_parent"
+           android:layout_height="fill_parent">
 
-            <!-- Slide hints: if the "sliding card" feature is enabled,
+           <!-- Slide hints: if the "sliding card" feature is enabled,
                  one or the other of these is visible at any given moment
                  (see updateCardSlideHints()). -->
 
-            <!-- Slide hint and arrow *above* the main body of the card,
+           <!-- Slide hint and arrow *above* the main body of the card,
                  shown when the card is in the *bottom* position. -->
-            <!-- This hint's position onscreen is static: the Y value is set
+           <!-- This hint's position onscreen is static: the Y value is set
                  so that the hint will be visible just above the top edge of
                  the CallCard when the CallCard is in the "bottom" position.
                  The resources here describe the portrait mode layout; see
                  InCallScreen.ConfigurationHelper.applyConfigurationToLayout()
                  for the differences in landscape mode. -->
-            <LinearLayout android:id="@+id/slideUp"
-                          android:orientation="vertical"
-                          android:layout_width="fill_parent"
-                          android:layout_height="wrap_content"
-                          android:layout_alignParentBottom="true"
-                          android:background="@null"
-                          android:visibility="gone"
-                          >
-                <TextView android:id="@+id/slideUpHint"
-                          android:layout_gravity="center_horizontal"
-                          android:gravity="center_horizontal"
-                          android:textAppearance="?android:attr/textAppearanceMedium"
-                          android:textColor="?android:attr/textColorSecondary"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@android:drawable/arrow_up_float"
-                    />
-            </LinearLayout>
+           <LinearLayout
+               android:id="@+id/slideUp"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:layout_alignParentBottom="true"
+               android:background="@null"
+               android:orientation="vertical"
+               android:visibility="gone">
 
-            <!-- Slide hint and arrow *below* the main body of the card,
+               <TextView
+                   android:id="@+id/slideUpHint"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center_horizontal"
+                   android:gravity="center_horizontal"
+                   android:textAppearance="?android:attr/textAppearanceMedium"
+                   android:textColor="?android:attr/textColorSecondary" />
+
+               <ImageView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center_horizontal"
+                   android:src="@android:drawable/arrow_up_float" />
+           </LinearLayout>
+
+           <!-- Slide hint and arrow *below* the main body of the card,
                  shown when the card is in the *top* position. -->
-            <!-- This hint's position onscreen is static: the Y value is set
+           <!-- This hint's position onscreen is static: the Y value is set
                  so that the hint will be visible just below the bottom edge of
                  the CallCard when the CallCard is in the "top" position.
                  The resources here describe the portrait mode layout; see
                  InCallScreen.ConfigurationHelper.applyConfigurationToLayout()
                  for the differences in landscape mode. -->
-            <LinearLayout android:id="@+id/slideDown"
-                          android:orientation="vertical"
-                          android:layout_width="fill_parent"
-                          android:layout_height="wrap_content"
-                          android:layout_alignParentTop="true"
-                           android:background="@null"
-                          android:visibility="gone"
-                          >
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@android:drawable/arrow_down_float"
-                    />
-                <TextView
-                    android:id="@+id/slideDownHint"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center_horizontal"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="?android:attr/textColorSecondary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />                
-                <TextView
-                    android:id="@+id/stats"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center_horizontal"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="?android:attr/textColorSecondary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-               <TextView
-                    android:id="@+id/codec"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center_horizontal"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="?android:attr/textColorSecondary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-            </LinearLayout>
+           <LinearLayout
+               android:id="@+id/slideDown"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:layout_alignParentTop="true"
+               android:background="@null"
+               android:orientation="vertical"
+               android:visibility="gone">
 
-        </RelativeLayout>  <!-- End of inCallPanel -->
+               <ImageView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center_horizontal"
+                   android:src="@android:drawable/arrow_down_float" />
+
+               <TextView
+                   android:id="@+id/slideDownHint"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center_horizontal"
+                   android:gravity="center_horizontal"
+                   android:textAppearance="?android:attr/textAppearanceMedium"
+                   android:textColor="?android:attr/textColorSecondary" />
+
+               <TextView
+                   android:id="@+id/stats"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center_horizontal"
+                   android:gravity="center_horizontal"
+                   android:textAppearance="?android:attr/textAppearanceMedium"
+                   android:textColor="?android:attr/textColorSecondary" />
+
+               <TextView
+                   android:id="@+id/codec"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center_horizontal"
+                   android:gravity="center_horizontal"
+                   android:textAppearance="?android:attr/textAppearanceMedium"
+                   android:textColor="?android:attr/textColorSecondary" />
+           </LinearLayout>
+
+       </RelativeLayout>  <!-- End of inCallPanel -->
 
     </FrameLayout>  <!-- End of mainFrame -->
     
